@@ -119,12 +119,16 @@ def criteria(elastic_constants_dict, latt_system):
                      (c15*c15*(c22*c33-c23*c23)+c25*c25*(c11*c33-c13*c13)+c35*c35*(c11*c22-c12*c12)) + c55*g > 0
             
     elif latt_system == 'Triclinic':
-        condition1 = det(array([c11, c12, c13, c14, c15, c16],
-                                  [c12, c22, c23, c24, c25, c26],
-                                  [c13, c23, c33, c34, c35, c36],
-                                  [c14, c24, c34, c44, c45, c46],
-                                  [c15, c25, c35, c45, c55, c56],
-                                  [c16, c26, c36, c46, c56, c66])) > 0
+        condition1 = c11 > 0
+        condition2 = c11 * c22 > c12 * c12
+        condition3 = c11*c22*c33 + 2*c12*c13*c23 - c11*c23*c23 - c22*c13*c13 - c33*c12*c12 > 0
+        condition4 = c44 > 0 and c55 > 0 and c66 > 0
+# { condition1 = det(array([c11, c12, c13, c14, c15, c16],
+#                                  [c12, c22, c23, c24, c25, c26],
+#                                  [c13, c23, c33, c34, c35, c36],
+  #                                [c14, c24, c34, c44, c45, c46],
+ #                                 [c15, c25, c35, c45, c55, c56],
+#                                  [c16, c26, c36, c46, c56, c66])) > 0
 
     # 2D Mater. 6 (2019) 048001
     elif latt_system == 'isotropy':

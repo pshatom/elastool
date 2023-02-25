@@ -929,6 +929,18 @@ def Triclinic(latt_system, elastic_constants_dict, stress_set_dict, convertion_f
     c56 = cij[19][0]
     c66 = cij[20][0]
 
+#modification1
+    D = c13*(c12*c23-c13*c22)+c23*(c12*c13-c23*c11)+c33*(c11*c22-c12*c12)
+    B_v = (c11+c22+c33+2*(c12+c13+c23))/9.
+    G_v = (c11+c22+c33+3*(c44+c55+c66)-(c12+c13+c23))/15.
+    B_r = D/(c11*(c22+c33-2*c23)+c22*(c33-2*c13)-2*c33*c12+c12*(2*c23-c12)+c13*(2*c12-c13)+c23*(2*c13-c23))
+    G_r = 15/(4*(c11*(c22+c33+c23)+c22*(c33+c13)+c33*c12-c12*(c23+c12)-c13*(c12+c13)-c23*(c13+c23))/D+3*(1/c44+1/c55+1/c66))
+
+    B_vrh = (B_v+B_r)/2.
+    G_vrh = (G_v+G_r)/2.
+    E = 9*B_vrh*G_vrh/(3*B_vrh+G_vrh)
+    v = (3*B_vrh-2*G_vrh)/(2*(3*B_vrh+G_vrh))
+#
     elastic_constants_dict['c11'] = c11
     elastic_constants_dict['c12'] = c12
     elastic_constants_dict['c13'] = c13
@@ -951,6 +963,16 @@ def Triclinic(latt_system, elastic_constants_dict, stress_set_dict, convertion_f
     elastic_constants_dict['c56'] = c56
     elastic_constants_dict['c66'] = c66
 
+#modification2
+    elastic_constants_dict['B_v'] = B_v
+    elastic_constants_dict['B_r'] = B_r
+    elastic_constants_dict['G_v'] = G_v
+    elastic_constants_dict['G_r'] = G_r
+    elastic_constants_dict['B_vrh'] = B_vrh
+    elastic_constants_dict['G_vrh'] = G_vrh
+    elastic_constants_dict['E'] = E
+    elastic_constants_dict['v'] = v
+#
     return elastic_constants_dict
 
 
